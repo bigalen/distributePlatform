@@ -28,6 +28,10 @@
       7. 更多的功能仍在规划中,很期待您参与进来一起改善APP
     </div>
     <div class="blank"></div>
+    <div class="tip-layer" v-if="showTip">
+        <h3>请点击右上角 ... </h3>
+        <h3>选择在浏览器中打开</h3>
+    </div>
   </div>
 </template>
 
@@ -35,6 +39,11 @@
 
 export default {
   name: 'app',
+  data () {
+    return {
+      showTip:false
+    }
+  },
   methods: {
     download () {
       var src = 'https://distributeplateform.oss-cn-beijing.aliyuncs.com/爱上记录.apk';
@@ -42,6 +51,13 @@ export default {
       form.action = src;
       document.getElementsByTagName('body')[0].appendChild(form);
       form.submit();
+    }
+  },
+  created () {
+    const ua = navigator.userAgent.toLowerCase()
+    const testUa = regexp => regexp.test(ua)
+    if (testUa(/micromessenger/ig) || testUa(/qqbrowser/ig)) {
+      this.showTip = true
     }
   }
 }
@@ -108,5 +124,23 @@ a {
   font-size: 12px;
   padding: 10px;
   border-radius: 10px;
+}
+.tip-layer{
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center
+}
+.tip-layer h3{
+  color: #fff;
+  margin-bottom: 60px
 }
 </style>
