@@ -55,8 +55,7 @@ export default {
   },
   created () {
     const ua = navigator.userAgent.toLowerCase()
-    const testUa = regexp => regexp.test(ua)
-    if (testUa(/micromessenger/ig) || testUa(/qqbrowser/ig)) {
+    if (ua.match(/MicroMessenger/i) == "micromessenger" || ua.match(/QQ/i) == 'qq') {
       this.showTip = true
     }
   }
